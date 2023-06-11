@@ -42,9 +42,9 @@ function sendPushNotificationToInstances() {
     });
 }
 
-// Schedule the push notification task to run at 2 pm every day
+// Schedule the push notification task to run at 14:00 on every day-of-week from Sunday through Friday.”
 cron.schedule(
-  "02 23 * * *",
+  "0 14 * * 0-5",
   () => {
     console.log("Push notifications sent!");
     sendPushNotificationToInstances();

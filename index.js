@@ -43,16 +43,14 @@ function sendPushNotificationToInstances() {
 }
 
 // Schedule the push notification task to run at 2 pm every day
-const cronJob = cron.schedule(
-  "0 22 * * *",
+cron.schedule(
+  "02 23 * * *",
   () => {
     console.log("Push notifications sent!");
     sendPushNotificationToInstances();
   },
   { timezone: "Asia/Dhaka" }
 );
-
-cronJob.start();
 
 app.get("/", (req, res) => {
   sendPushNotificationToInstances();

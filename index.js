@@ -44,7 +44,7 @@ function sendPushNotificationToInstances() {
 
 // Schedule the push notification task to run at 2 pm every day
 const cronJob = cron.schedule(
-  "* * * * *",
+  "0 22 * * *",
   () => {
     console.log("Push notifications sent!");
     sendPushNotificationToInstances();

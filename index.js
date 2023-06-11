@@ -26,8 +26,8 @@ function sendPushNotificationToInstances() {
   };
 
   const interestId = "cafeteria";
-  console.log(interestId);
-  console.log(process.env.PUSHER_INSTANCE_ID);
+  // console.log(interestId);
+  // console.log(process.env.PUSHER_INSTANCE_ID);
 
   // Send the notification
   beamsClient
@@ -43,15 +43,24 @@ function sendPushNotificationToInstances() {
 }
 
 // Schedule the push notification task to run at 2 pm every day
-cron.schedule(
-  "00 14 * * 0-5",
+const cronJob = cron.schedule(
+  "* * * * *",
   () => {
+    console.log("Push notifications sent!");
     sendPushNotificationToInstances();
   },
   { timezone: "Asia/Dhaka" }
 );
 
+cronJob.start();
+
+app.get("/", (req, res) => {
+  sendPushNotificationToInstances();
+  res.send("Push Notification send!");
+});
+
 // Start the server
-app.listen(process.env.PORT, () => {
+port = process.env.PORT || 5000;
+app.listen(port, () => {
   console.log(`Server started and listening on port ${port}`);
 });
